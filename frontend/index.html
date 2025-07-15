@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="frontend/style.css">
+    <meta charset="UTF-8">
+    <script src="http://telegram.org/js/telegram-web-app.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetrix</title>
+</head>
+<body>
+        <div class="mobile-window">  
+            <div class="content">
+            <div class="screen" id="accountPage" style="display: none;">Account Page</div>
+            <div class="screen active" id="lobbyPage">
+                <img src="images/logo.png" class="logotip">
+            <!--GIF ТЕТРІС ГРИ-->
+                <div class="tetris-container">
+                    <div class="block block-L block-L-90" style="--pos-x: 3; --pos-y: 1;">
+                        <div class="square"></div>
+                        <div class="square"></div>
+                        <div class="square"></div>
+                        <div class="square"></div>
+                    </div>
+                    <div class="block block-O" style="--pos-x: 1; --pos-y: 1;">
+                        <div class="square"></div>
+                        <div class="square"></div>
+                        <div class="square"></div>
+                        <div class="square"></div>
+                    </div>
+                    <div class="block block-Z" style="--pos-x: 2; --pos-y: 2;">
+                        <div class="square"></div>
+                        <div class="square"></div>
+                        <div class="square"></div>
+                        <div class="square"></div>
+                    </div>
+                    <div class="block block-O" style="--pos-x: 4; --pos-y: 3;">
+                        <div class="square"></div>
+                        <div class="square"></div>
+                        <div class="square"></div>
+                        <div class="square"></div>
+                    </div>
+                    <div class="block block-L block-L-270" style="--pos-x: 1; --pos-y: 3;">
+                        <div class="square"></div>
+                        <div class="square"></div>
+                        <div class="square"></div>
+                        <div class="square"></div>
+                    </div>
+                    <div class="block block-I" style="--pos-x: 6; --pos-y: 1;">
+                        <div class="square"></div>
+                        <div class="square"></div>
+                        <div class="square"></div>
+                        <div class="square"></div>
+                    </div>
+                </div>
+                <!--Кнопка Play-->
+                <button class="button-play" onclick="showScreen('gamePage')">
+                <svg
+                    class="icon"
+                    id="Play"
+                    viewBox="0 0 48 48"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                    class="color000000 svgShape"
+                    fill="#ffffff"
+                    d="M12 39c-.549 0-1.095-.15-1.578-.447A3.008 3.008 0 0 1 9 36V12c0-1.041.54-2.007 1.422-2.553a3.014 3.014 0 0 1 2.919-.132l24 12a3.003 3.003 0 0 1 0 5.37l-24 12c-.42.21-.885.315-1.341.315z"
+                    ></path>
+                </svg>
+                <span class="text">Play</span>
+                </button>
+            </div>
+            <div class="screen" id="walletPage" style="display: none;">Wallet Page</div>
+            <div class="screen" id="settingsPage" style="display: none;">Settings Page</div>
+            <div class="screen" id="extraPage" style="display: none;">Extra Page</div>
+            <div class="screen" id="gamePage" style="display: none">
+                <div id="game-container">
+                    <canvas id="tetrisCanvas"></canvas>
+                    <div id="score">Coins: <span id="scoreValue">0</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="screen" id="gameOver" style="display: none">
+                <div id="gameOver-container">
+                    <h1>Game Over</h1>
+                    <div id="finalScore">Coins: <span id="finalCoins">0</span></div>
+                    <button class="restart">
+                        <span class="textfinalpage">Restart</span>
+                    </button>
+                    <button class="lobbyfinalbutton">
+                        <span class="textfinalpage">Lobby</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Нижня панель -->
+            <div class="button-container">
+                <!--Кнопка для переходу на сторінку аккаунта-->
+            <button onclick="showScreen('accountPage')">
+                <svg
+                class="icon_down_panel"
+                stroke="currentColor"
+                fill="currentColor"
+                stroke-width="0"
+                viewBox="0 0 24 24"
+                height="2em"
+                width="2em"
+                xmlns="http://www.w3.org/2000/svg"
+                >
+                <path
+                d="M12 2.5a5.5 5.5 0 0 1 3.096 10.047 9.005 9.005 0 0 1 5.9 8.181.75.75 0 1 1-1.499.044 7.5 7.5 0 0 0-14.993 0 .75.75 0 0 1-1.5-.045 9.005 9.005 0 0 1 5.9-8.18A5.5 5.5 0 0 1 12 2.5ZM8 8a4 4 0 1 0 8 0 4 4 0 0 0-8 0Z"
+                ></path>
+                </svg>
+            </button>
+            <!--Кнопка для переходу на сторінку Бонуси-->
+            <button onclick="showScreen('extraPage')">
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="#ffffff"
+                viewBox="0 0 20 18"
+                height="2em"
+                width="2em"
+                class="icon favorite"
+                fill="none"
+                >
+                    <path
+                    fill="inherit"
+                    d="M14.44 0C12.63 0 11.01 0.88 10 2.23C9.48413 1.53881 8.81426 0.977391 8.04353 0.590295C7.27281 0.203198 6.42247 0.00108555 5.56 0C2.49 0 0 2.5 0 5.59C0 6.78 0.19 7.88 0.52 8.9C2.1 13.9 6.97 16.89 9.38 17.71C9.72 17.83 10.28 17.83 10.62 17.71C13.03 16.89 17.9 13.9 19.48 8.9C19.81 7.88 20 6.78 20 5.59C20 2.5 17.51 0 14.44 0Z"
+                    ></path>
+                ></svg>
+            </button>
+            <!--Кнопка для переходу на сторінку Головна-->
+            <button onclick="showScreen('lobbyPage')">
+                <svg
+                    class="icon_down_panel"
+                    stroke="currentColor"
+                    fill="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 1024 1024"
+                    height="2em"
+                    width="2em"
+                    xmlns="http://www.w3.org/2000/svg"
+                    >
+                    <path
+                        d="M946.5 505L560.1 118.8l-25.9-25.9a31.5 31.5 0 0 0-44.4 0L77.5 505a63.9 63.9 0 0 0-18.8 46c.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8a63.6 63.6 0 0 0 18.7-45.3c0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204zm217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z"
+                    ></path>
+                ></svg>
+            </button>
+            <!--Кнопка для переходу на сторінку Кошильок-->
+            <button onclick="showScreen('walletPage')">
+                <svg
+                    class="icon_down_panel"
+                    stroke="currentColor"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="2em"
+                    viewBox="0 0 48 48"
+                    height="2em"
+                >
+                    
+                    <path
+                        d="M42 36v2c0 2.21-1.79 4-4 4H10c-2.21 0-4-1.79-4-4V10c0-2.21 1.79-4 4-4h28c2.21 0 4 1.79 4 4v2H24c-2.21 0-4 1.79-4 4v16c0 2.21 1.79 4 4 4h18zm-18-4h20V16H24v16zm8-5c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"
+                    ></path>
+                </svg>
+            </button>
+            <!--Кнопка для переходу на сторінку Настройки-->
+            <button onclick="showScreen('settingsPage')">
+                    <svg
+                    class="icon_down_panel"
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24"
+                    viewBox="0 -960 960 960"
+                    width="24"
+                    fill="#e8eaed"
+                    >
+                    <path
+                        d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 ```html
+                        99t99.5 41Zm-2-140Z"
+                    ></path>
+                    </svg>
+                </button>
+            </div>    
+        </div>
+    <script src="script.js"></script>
+</body>
+</html>

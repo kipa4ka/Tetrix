@@ -1,0 +1,519 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: sans-serif;
+}
+.mobile-window {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.content {
+    padding: 10px;
+    font-family: sans-serif;
+}
+
+.screen {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 60px;
+  background-color: #ff9100;
+  border-top: 1px solid #ccc;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+}
+.button-container button {
+  flex: 1;
+  height: 100%;
+  background: none;
+  border: none;
+}
+
+.button-container button {
+  cursor: pointer;
+  outline: 0 !important;
+  border: 0 !important;
+  width: 40px;
+  height: 40px;
+  border-radius: 7px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: all ease-in-out 0.3s;
+  position: relative;
+}
+
+.button-container button:active {
+    background-color: black;  
+}
+.button-play {
+  position: fixed;
+  bottom: 11%; 
+  width: 410px;
+  height: 40px;
+  background: #15ccbe;
+  color: white;
+  font-family: "Istok Web", sans-serif;
+  letter-spacing: 1px;
+  font-size: 14px;
+  border: 1px solid #0f988e;
+  border-radius: 3px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  cursor: pointer;
+  box-shadow:
+    inset 0 30px 30px -15px rgba(255, 255, 255, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.3),
+    0 3px 0 #0f988e,
+    0 5px 10px rgba(0, 0, 0, 0.1);
+  transition: 150ms all ease-in-out;
+}
+.restart {
+  position: relative;
+  width: 300px;
+  height: 40px;
+  background: #15ccbe;
+  color: white;
+  font-family: "Istok Web", sans-serif;
+  letter-spacing: 1px;
+  font-size: 14px;
+  border: 1px solid #0f988e;
+  border-radius: 3px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  cursor: pointer;
+  box-shadow:
+    inset 0 30px 30px -15px rgba(255, 255, 255, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.3),
+    0 3px 0 #0f988e,
+    0 5px 10px rgba(0, 0, 0, 0.1);
+  transition: 150ms all ease-in-out;
+  margin-top: 10px;
+}
+.restart:active {
+  transform: translateY(3px);
+  box-shadow:
+    inset 0 16px 2px -15px rgba(0, 0, 0, 0),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+    inset 0 1px 20px rgba(0, 0, 0, 0.1),
+    0 0 0 #0f988e,
+    0 0 0 2px rgba(255, 255, 255, 0.5),
+    0 0 0 rgba(0, 0, 0, 0),
+    0 0 0 rgba(0, 0, 0, 0);
+}
+#game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 1001; /* Вище за #tetrisCanvas */
+}
+#gameOver-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  background-color: #7c7c7c;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 1001; /* Вище за #tetrisCanvas */
+}
+
+.game-container h1 {
+  position: relative;
+  text-align: center;
+  color: rgb(255, 0, 0);
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+.lobbyfinalbutton {
+  position: relative;
+  width: 300px;
+  height: 40px;
+  background: #15ccbe;
+  color: white;
+  font-family: "Istok Web", sans-serif;
+  letter-spacing: 1px;
+  font-size: 14px;
+  border: 1px solid #0f988e;
+  border-radius: 3px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  cursor: pointer;
+  box-shadow:
+    inset 0 30px 30px -15px rgba(255, 255, 255, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.3),
+    0 3px 0 #0f988e,
+    0 5px 10px rgba(0, 0, 0, 0.1);
+  transition: 150ms all ease-in-out;
+  margin-top: 10px;
+}
+.lobbyfinalbutton:active {
+  transform: translateY(3px);
+  box-shadow:
+    inset 0 16px 2px -15px rgba(0, 0, 0, 0),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+    inset 0 1px 20px rgba(0, 0, 0, 0.1),
+    0 0 0 #0f988e,
+    0 0 0 2px rgba(255, 255, 255, 0.5),
+    0 0 0 rgba(0, 0, 0, 0),
+    0 0 0 rgba(0, 0, 0, 0);
+}
+#finalScore {
+  text-align: center;
+  color: #ffc800;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.button-play .icon {
+  margin-right: 8px;
+  width: 24px;
+  height: 24px;
+  transition: all 0.5s ease-in-out;
+}
+.button-play:active {
+  transform: translateY(3px);
+  box-shadow:
+    inset 0 16px 2px -15px rgba(0, 0, 0, 0),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+    inset 0 1px 20px rgba(0, 0, 0, 0.1),
+    0 0 0 #0f988e,
+    0 0 0 2px rgba(255, 255, 255, 0.5),
+    0 0 0 rgba(0, 0, 0, 0),
+    0 0 0 rgba(0, 0, 0, 0);
+}
+.button-play:hover .text {
+  transform: translateX(220px);
+  transition: all 0.5s ease-in-out;
+}
+.button-play:hover .icon {
+  transform: translate(23px);
+}
+
+/* Сама гра */
+#tetrisCanvas {
+    border: 10px solid #333;
+    background-color:rgba(0, 0, 0, 0.1);;
+    display: block;
+    margin: 0 auto;
+    width: 400px; /* Відповідає BLOCK_SIZE * BOARD_WIDTH (40 * 10) */
+    height: 800px; /* Відповідає BLOCK_SIZE * BOARD_HEIGHT (40 * 20) */
+    position: fixed;
+    bottom: 8%;
+}
+
+.grid {
+    width: 40px;
+    height: 40px;
+    box-sizing: border-box;
+    border: 1px solid #ff0000;
+}
+
+.tetromino {
+    background-color: #f700ff;
+}
+
+#game {
+    font-size: 24px;
+    margin-top: 10px;
+}
+
+#game-over {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000; /* Зменшено, щоб #game-container був вище */
+}
+
+#score {
+  position: fixed;
+  margin-bottom: 10%;
+  font-size: 24px;
+  color: #ffc800;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 5px 10px;
+  border-radius: 5px;
+  z-index: 999;
+}
+
+/* STYLE FOR GIF TETRIS GAME */
+.tetris-container {
+  
+  --animation-duration: 10s;
+  --grid-size-x: 6;
+  --grid-size-y: 9;
+  --square-size: 4rem;
+  z-index: 999;
+}
+
+/* Container */
+.tetris-container {
+  background: rgba(0, 0, 0, 0.1);
+  border: 10px solid #333;
+  box-sizing: content-box;
+  height: calc(var(--grid-size-y) * var(--square-size));
+  overflow: hidden;
+  position: fixed;
+  z-index: 999;
+  bottom: 20%;
+  width: calc(var(--grid-size-x) * var(--square-size));
+}
+
+/* Container - Grid */
+.tetris-container::before {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: var(--square-size) var(--square-size);
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Blocks */
+.block {
+  animation-duration: var(--animation-duration);
+  animation-iteration-count: infinite;
+  animation-name: fallBlock;
+  animation-timing-function: linear;
+  display: grid;
+  gap: 0;
+  grid-template-columns: repeat(var(--grid-size-x), var(--square-size));
+  grid-template-rows: repeat(var(--grid-size-y), var(--square-size));
+  position: absolute;
+}
+.block-I {
+  color: #00ffff;
+}
+.block-L {
+  color: #ff3e3e;
+}
+.block-O {
+  color: #ffff00;
+}
+.block-S {
+  color: #ff9d00;
+}
+.block-Z {
+  color: #00ff9d;
+}
+
+/* Block's square */
+.square {
+  --shadow: inset 2px 2px 2px rgba(255, 255, 255, 0.4),
+    inset -2px -2px 2px rgba(0, 0, 0, 0.4);
+  animation-duration: var(--animation-duration);
+  animation-iteration-count: infinite;
+  animation-name: clearSquare;
+  animation-timing-function: ease-out;
+  background-color: currentColor;
+  box-shadow: var(--shadow);
+  grid-column-start: var(--square-pos-x);
+  grid-row-start: calc(var(--grid-size-y) - var(--square-pos-y) + 1);
+  height: var(--square-size);
+  width: var(--square-size);
+}
+
+/* Mapping */
+.block:nth-child(1) {
+  --block-index: 1;
+}
+.block:nth-child(2) {
+  --block-index: 2;
+}
+.block:nth-child(3) {
+  --block-index: 3;
+}
+.block:nth-child(4) {
+  --block-index: 4;
+}
+.block:nth-child(5) {
+  --block-index: 5;
+}
+.block:nth-child(6) {
+  --block-index: 6;
+}
+
+/* Block I - Line */
+.block-I .square:nth-child(1) {
+  --square-pos-x: calc(var(--pos-x) + 0);
+  --square-pos-y: calc(var(--pos-y) + 0);
+}
+.block-I .square:nth-child(2) {
+  --square-pos-x: calc(var(--pos-x) + 0);
+  --square-pos-y: calc(var(--pos-y) + 1);
+}
+.block-I .square:nth-child(3) {
+  --square-pos-x: calc(var(--pos-x) + 0);
+  --square-pos-y: calc(var(--pos-y) + 2);
+}
+.block-I .square:nth-child(4) {
+  --square-pos-x: calc(var(--pos-x) + 0);
+  --square-pos-y: calc(var(--pos-y) + 3);
+}
+
+/* Block L - 90° */
+.block-L-90 .square:nth-child(1) {
+  --square-pos-x: calc(var(--pos-x) + 0);
+  --square-pos-y: calc(var(--pos-y) + 0);
+}
+.block-L-90 .square:nth-child(2) {
+  --square-pos-x: calc(var(--pos-x) + 1);
+  --square-pos-y: calc(var(--pos-y) + 0);
+}
+.block-L-90 .square:nth-child(3) {
+  --square-pos-x: calc(var(--pos-x) + 2);
+  --square-pos-y: calc(var(--pos-y) + 0);
+}
+.block-L-90 .square:nth-child(4) {
+  --square-pos-x: calc(var(--pos-x) + 2);
+  --square-pos-y: calc(var(--pos-y) + 1);
+}
+
+/* Block L - 270° */
+.block-L-270 .square:nth-child(1) {
+  --square-pos-x: calc(var(--pos-x) + 0);
+  --square-pos-y: calc(var(--pos-y) + 0);
+}
+.block-L-270 .square:nth-child(2) {
+  --square-pos-x: calc(var(--pos-x) + 0);
+  --square-pos-y: calc(var(--pos-y) + 1);
+}
+.block-L-270 .square:nth-child(3) {
+  --square-pos-x: calc(var(--pos-x) + 1);
+  --square-pos-y: calc(var(--pos-y) + 1);
+}
+.block-L-270 .square:nth-child(4) {
+  --square-pos-x: calc(var(--pos-x) + 2);
+  --square-pos-y: calc(var(--pos-y) + 1);
+}
+
+/* Block O - Square */
+.block-O .square:nth-child(1) {
+  --square-pos-x: calc(var(--pos-x) + 0);
+  --square-pos-y: calc(var(--pos-y) + 0);
+}
+.block-O .square:nth-child(2) {
+  --square-pos-x: calc(var(--pos-x) + 1);
+  --square-pos-y: calc(var(--pos-y) + 0);
+}
+.block-O .square:nth-child(3) {
+  --square-pos-x: calc(var(--pos-x) + 0);
+  --square-pos-y: calc(var(--pos-y) + 1);
+}
+.block-O .square:nth-child(4) {
+  --square-pos-x: calc(var(--pos-x) + 1);
+  --square-pos-y: calc(var(--pos-y) + 1);
+}
+
+/* Block Z - Snake to left */
+.block-Z .square:nth-child(1) {
+  --square-pos-x: calc(var(--pos-x) + 1);
+  --square-pos-y: calc(var(--pos-y) + 0);
+}
+.block-Z .square:nth-child(2) {
+  --square-pos-x: calc(var(--pos-x) + 2);
+  --square-pos-y: calc(var(--pos-y) + 0);
+}
+.block-Z .square:nth-child(3) {
+  --square-pos-x: calc(var(--pos-x) + 0);
+  --square-pos-y: calc(var(--pos-y) + 1);
+}
+.block-Z .square:nth-child(4) {
+  --square-pos-x: calc(var(--pos-x) + 1);
+  --square-pos-y: calc(var(--pos-y) + 1);
+}
+
+/* Animations */
+@keyframes fallBlock {
+  0% {
+    bottom: calc(100% * max(0, calc(var(--block-index) - 0)));
+  }
+  13% {
+    bottom: calc(100% * max(0, calc(var(--block-index) - 1)));
+  }
+  26% {
+    bottom: calc(100% * max(0, calc(var(--block-index) - 2)));
+  }
+  39% {
+    bottom: calc(100% * max(0, calc(var(--block-index) - 3)));
+  }
+  52% {
+    bottom: calc(100% * max(0, calc(var(--block-index) - 4)));
+  }
+  65% {
+    bottom: calc(100% * max(0, calc(var(--block-index) - 5)));
+  }
+  78% {
+    bottom: calc(100% * max(0, calc(var(--block-index) - 6)));
+  }
+  90% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes clearSquare {
+  0% {
+    background: currentColor;
+    box-shadow: var(--shadow);
+  }
+  85% {
+    background: currentColor;
+    box-shadow: var(--shadow);
+  }
+  95% {
+    background: #fff;
+    box-shadow: none;
+  }
+  100% {
+    background: #fff;
+    box-shadow: none;
+  }
+}
+
+.logotip{
+  display: flex;
+  height: auto;
+  width: 400px;
+  margin: -30px auto;
+  position: relative;
+  z-index: 1000;
+}
