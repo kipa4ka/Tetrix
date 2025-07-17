@@ -24,7 +24,7 @@ if (!finalCoinsElement) {
 }
 
 // Налаштування canvas
-const BLOCK_SIZE = 40;
+const BLOCK_SIZE = 30;
 const BOARD_WIDTH = 10;
 const BOARD_HEIGHT = 20;
 if (canvas) {
@@ -347,6 +347,7 @@ function startGame() {
 }
 
 // Функція перемикання екранів
+
 function showScreen(screenId) {
     screens.forEach((screen) => {
         screen.style.display = "none";
@@ -359,6 +360,52 @@ function showScreen(screenId) {
             if (buttonContainer) buttonContainer.style.display = 'none';
             if (canvas) canvas.style.margin = '0 auto';
             startGame();
+        } else if (screenId === 'gameOver') {
+            if (buttonContainer) buttonContainer.style.display = 'flex';
+            if (gameLoop) {
+                clearInterval(gameLoop);
+                gameLoop = null;
+            }
+            if (clearAnimation) {
+                clearAnimation = null;
+            }
+            // Відправка оновлених монет на сервер
+            const urlParams = new URLSearchParams(window.location.search);
+            const userId = urlParams.get('userId');
+            if (userId && finalCoinsElement) {
+                const finalCoins = parseInt(finalCoinsElement.textContent) || coins;
+                fetch(`http://localhost:5000/users/${userId}/coins`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ coins: finalCoins })
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Coins updated:', data);
+                    // Оновлюємо відображення монет на gameOver
+                    if (finalCoinsElement) finalCoinsElement.textContent = data.coins;
+                })
+                .catch(err => console.error('Error updating coins:', err));
+            }
+        } else if (screenId === 'lobbyPage') {
+            // Отримання та відображення монет у лобі
+            const urlParams = new URLSearchParams(window.location.search);
+            const userId = urlParams.get('userId');
+            if (userId) {
+                fetch(`http://localhost:5000/users/${userId}`)
+                    .then(response => {
+                        if (!response.ok) throw new Error('Network response was not ok');
+                        return response.json();
+                    })
+                    .then(data => {
+                        const lobbyCoins = document.getElementById('lobbyCoins');
+                        if (lobbyCoins) lobbyCoins.textContent = data.coins || 0;
+                    })
+                    .catch(err => console.error('Error fetching coins for lobby:', err));
+            }
         } else {
             if (buttonContainer) buttonContainer.style.display = 'flex';
             if (gameLoop) {
