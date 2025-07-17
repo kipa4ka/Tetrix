@@ -347,7 +347,6 @@ function startGame() {
 }
 
 // Функція перемикання екранів
-
 function showScreen(screenId) {
     screens.forEach((screen) => {
         screen.style.display = "none";
@@ -369,7 +368,6 @@ function showScreen(screenId) {
             if (clearAnimation) {
                 clearAnimation = null;
             }
-            // Відправка оновлених монет на сервер
             const urlParams = new URLSearchParams(window.location.search);
             const userId = urlParams.get('userId');
             if (userId && finalCoinsElement) {
@@ -385,16 +383,15 @@ function showScreen(screenId) {
                 })
                 .then(data => {
                     console.log('Coins updated:', data);
-                    // Оновлюємо відображення монет на gameOver
                     if (finalCoinsElement) finalCoinsElement.textContent = data.coins;
                 })
                 .catch(err => console.error('Error updating coins:', err));
             }
         } else if (screenId === 'lobbyPage') {
-            // Отримання та відображення монет у лобі
             const urlParams = new URLSearchParams(window.location.search);
             const userId = urlParams.get('userId');
             if (userId) {
+                // Отримання особистих коїнів
                 fetch(`http://localhost:5000/users/${userId}`)
                     .then(response => {
                         if (!response.ok) throw new Error('Network response was not ok');
@@ -405,6 +402,17 @@ function showScreen(screenId) {
                         if (lobbyCoins) lobbyCoins.textContent = data.coins || 0;
                     })
                     .catch(err => console.error('Error fetching coins for lobby:', err));
+                // Отримання загальних коїнів
+                fetch(`http://localhost:5000/total-coins`)
+                    .then(response => {
+                        if (!response.ok) throw new Error('Network response was not ok');
+                        return response.json();
+                    })
+                    .then(data => {
+                        const totalCoinsElement = document.getElementById('totalCoins');
+                        if (totalCoinsElement) totalCoinsElement.textContent = data.totalCoins || 0;
+                    })
+                    .catch(err => console.error('Error fetching total coins:', err));
             }
         } else {
             if (buttonContainer) buttonContainer.style.display = 'flex';
