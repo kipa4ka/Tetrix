@@ -349,122 +349,86 @@ function startGame() {
 
 // Функція перемикання екранів
 function showScreen(screenId) {
-    // Отримуємо всі елементи з класом "screen" і приховуємо їх, встановлюючи display: "none"
     screens.forEach((screen) => {
         screen.style.display = "none";
     });
-
-    // Шукаємо елемент із заданим ідентифікатором (screenId)
     const target = document.getElementById(screenId);
-
-    // Перевіряємо, чи знайдено елемент
     if (target) {
-        // Якщо елемент знайдено, показуємо його, встановлюючи display: "flex"
         target.style.display = "flex";
-
-        // Логуємо в консоль, який екран відкрито, для дебагу
         console.log(`Відкрито екран: ${screenId}`);
-
-        // Перевіряємо, який екран відкрито, і виконуємо відповідну логіку
         if (screenId === 'gamePage') {
-            // Якщо це екран гри, ховаємо кнопку-контейнер
             if (buttonContainer) buttonContainer.style.display = 'none';
-
-            // Встановлюємо margin для canvas, щоб він був по центру
             if (canvas) canvas.style.margin = '0 auto';
-
-            // Запускаємо гру
             startGame();
         } else if (screenId === 'gameOver') {
-            // Якщо це екран завершення гри, показуємо кнопку-контейнер
             if (buttonContainer) buttonContainer.style.display = 'flex';
-
-            // Зупиняємо гру, якщо вона запущена
             if (gameLoop) {
                 clearInterval(gameLoop);
                 gameLoop = null;
             }
-
-            // Очищаємо анімацію, якщо вона активна
             if (clearAnimation) {
                 clearAnimation = null;
             }
-
-            // Отримуємо параметри URL (наприклад, userId)
             const urlParams = new URLSearchParams(window.location.search);
             const userId = urlParams.get('userId');
-
-            // Перевіряємо, чи є userId і елемент для відображення фінальних коїнів
             if (userId && finalCoinsElement) {
-                // Отримуємо фінальну кількість коїнів (з елемента або з гри)
                 const finalCoins = parseInt(finalCoinsElement.textContent) || coins;
-
-                // Відправляємо запит на сервер для оновлення кількості коїнів
                 fetch(`http://localhost:5000/users/${userId}/coins`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ coins: finalCoins })
                 })
                 .then(response => {
-                    // Перевіряємо, чи відповідь сервера успішна
                     if (!response.ok) throw new Error('Network response was not ok');
                     return response.json();
                 })
                 .then(data => {
-                    // Логуємо оновлені дані в консоль
                     console.log('Coins updated:', data);
-
-                    // Оновлюємо текст елемента з фінальними коїнами
                     if (finalCoinsElement) finalCoinsElement.textContent = data.coins;
                 })
-                .catch(err => {
-                    // Логуємо помилку, якщо запит не вдалося виконати
-                    console.error('Error updating coins:', err);
-                });
+                .catch(err => console.error('Error updating coins:', err));
             }
         } else if (screenId === 'lobbyPage') {
-            // Якщо це екран лобі, отримуємо параметри URL
             const urlParams = new URLSearchParams(window.location.search);
             const userId = urlParams.get('userId');
-
-            // Перевіряємо, чи є userId
             if (userId) {
-                // Отримання особистих коїнів користувача
-                fetch(`http://localhost:5000/users/${userId}`)
+                // Отримання профілю з фото
+                fetch(`http://localhost:5000/users/${userId}/profile?photo=${urlParams.get('photo')}`)
                     .then(response => {
-                        // Перевіряємо, чи відповідь сервера успішна
                         if (!response.ok) throw new Error('Network response was not ok');
                         return response.json();
                     })
                     .then(data => {
-                        // Отримуємо елемент для відображення особистих коїнів
                         const lobbyCoins = document.getElementById('lobbyCoins');
-
-                        // Оновлюємо текст елемента з особистими коїнами
+                        const userPhoto = document.getElementById('userPhoto');
                         if (lobbyCoins) lobbyCoins.textContent = data.coins || 0;
+                        if (userPhoto) userPhoto.src = data.photo; // Встановлюємо фото
                     })
-                    .catch(err => {
-                        // Логуємо помилку, якщо запит не вдалося виконати
-                        console.error('Error fetching coins for lobby:', err);
-                    });
+                    .catch(err => console.error('Error fetching profile for lobby:', err));
+
+                // Отримання загальних коїнів
+                fetch(`http://localhost:5000/total-coins`)
+                    .then(response => {
+                        if (!response.ok) throw new Error('Network response was not ok');
+                        return response.json();
+                    })
+                    .then(data => {
+                        const totalCoinsElement = document.getElementById('totalCoins');
+                        if (totalCoinsElement) totalCoinsElement.textContent = data.totalCoins || 0;
+                    })
+                    .catch(err => console.error('Error fetching total coins:', err));
             }
         } else {
-            // Для всіх інших екранів показуємо кнопку-контейнер
             if (buttonContainer) buttonContainer.style.display = 'flex';
-
-            // Зупиняємо гру, якщо вона запущена
             if (gameLoop) {
                 clearInterval(gameLoop);
                 gameLoop = null;
             }
-
-            // Очищаємо анімацію, якщо вона активна
             if (clearAnimation) {
                 clearAnimation = null;
             }
         }
     } else {
-        // Якщо екран із заданим id не знайдено, логуємо помилку
         console.error(`Екран з id ${screenId} не знайдено!`);
     }
 }
