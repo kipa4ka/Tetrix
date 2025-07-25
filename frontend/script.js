@@ -433,6 +433,8 @@ function showScreen(screenId) {
     }
 }
 
+
+
 function goTo(screenId) {
     document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
     document.getElementById(screenId).classList.add('active');
@@ -499,3 +501,13 @@ if (backToHomeButton) {
 } else {
     console.error("Помилка: Кнопка .lobbyfinalbutton не знайдена!");
 }
+
+// Кнопки в аккаунті 
+const openRef = document.getElementById('openRef')
+const invite_conteiner = document.getElementById('invite_conteiner')
+const openStats = document.getElementById('openStats')
+const openSettings = document.getElementById('openSettings')
+const accountPage = document.getElementById('accountPage')
+
+
+
