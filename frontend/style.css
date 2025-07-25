@@ -325,7 +325,7 @@ body{
   --animation-duration: 10s;
   --grid-size-x: 6;
   --grid-size-y: 9;
-  --square-size: 3.5rem;
+  --square-size: 3rem;
   z-index: 999;
 }
 
