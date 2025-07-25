@@ -49,6 +49,7 @@ body{
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 }
+
 .button-container button {
   flex: 1;
   height: 100%;
@@ -338,7 +339,7 @@ body{
   overflow: hidden;
   position: fixed;
   z-index: 999;
-  bottom: 30%;
+  bottom: 32%;
   width: calc(var(--grid-size-x) * var(--square-size));
   border-radius: 20px;
 }
@@ -713,7 +714,7 @@ body{
   height: 70px;
   position: fixed;
   bottom: 2%;
-  left: 5.2%;
+  margin-left: 0.5%;
 }
 
 #Lobby{
@@ -723,10 +724,13 @@ body{
 }
 
 .back-container-down-class{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   background-color: #008cb2;
   position: fixed;
   height: 80px;
-  width: 100px;
+  width: 15%;
   border-radius: 20px;
   border: 2px solid #0099c4;
   margin-left: 5%;
