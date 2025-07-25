@@ -76,9 +76,6 @@ body{
   margin-right: 5%;
 }
 
-.button-container button:active {
-    background-color: #008cb2;  
-}
 .button-play {
   position: fixed;
   bottom: 22%; 
