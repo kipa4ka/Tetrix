@@ -14,18 +14,30 @@
                 <span id="userName">UserName</span>
                 <p id="idaccount">id: <span>345345345</span></p>
                 <img id="userPhoto" src="https://via.placeholder.com/50" alt="User Photo">
-                <div id="button-account">
-                    <button id="openRef">Ref</button>
-                    <div id="invite_conteiner">
-                        <h1>My invite link</h1>
-                        <span id="inviteLink">httpx://tme.......</span>
+                <div class="container">
+                    <div class="button_account">
+                        <input type="radio" id="radio-1" name="tabs" checked>
+                        <label class="tab" for="radio-1">Ref <span class="notification"></span></label>
+
+                        <input type="radio" id="radio-2" name="tabs">
+                        <label class="tab" for="radio-2">Stats</label>
+
+                        <input type="radio" id="radio-3" name="tabs">
+                        <label class="tab" for="radio-3">Settings</label>
+
+                        <span class="glider"></span>
                     </div>
-                    <button id="openStats" class="hidden">Stats</button>
-                    <button id="openSettings" class="hidden">Settings</button>
+
+                        <div class="tab-content">
+                            <div class="content content-1">Контент Ref</div>
+                            <div class="content content-2">Контент Stats</div>
+                            <div class="content content-3">⚙️ Тут будуть налаштування (Settings)</div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="screen active" id="lobbyPage">
-                <p>Total Coins: <span id="lobbyCoins">0</span></p>
+                
                  
             <!--GIF ТЕТРІС ГРИ-->
                 <div class="tetris-container">
@@ -86,13 +98,25 @@
                     <span class="text">Change Rule</span>
                 </button>
             </div>
-            <div class="screen" id="walletPage" style="display: none;">Wallet Page</div>
-            <div class="screen" id="settingsPage" style="display: none;">Settings Page</div>
-            <div class="screen" id="extraPage" style="display: none;">Extra Page</div>
+            <div class="screen" id="walletPage" style="display: none;"></div>
+            <div class="screen" id="taskPage" style="display: none;">
+                <div class="container">
+                    <div class="tabs">
+                        <input type="radio" id="radio-1" name="tabs" checked="">
+                        <label class="tab" for="radio-1">Spezial<span class="notification"></span></label>
+                        <input type="radio" id="radio-2" name="tabs">
+                        <label class="tab" for="radio-2">Rank</label>
+                        <input type="radio" id="radio-3" name="tabs">
+                        <label class="tab" for="radio-3">Ref</label>
+                        <span class="glider"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="screen" id="upgradePage" style="display: none;"></div>
             <div class="screen" id="gamePage" style="display: none">
                 <div id="game-container">
                     <canvas id="tetrisCanvas"></canvas>
-                    <div id="score">Coins: <span id="scoreValue">0</span></div>
+                    <div ><img id="score" src="images/coin.png" ><span id="scoreValue">0</span></div>
                     </div>
                 </div>
             </div>
@@ -109,8 +133,11 @@
                 </div>
             </div>
 
+            <div class="top-container">
+                <span id="TotalCoins">0</span>
+                <img id="TotalCoinsImg" src="images/coin.png">
+            </div>
             <!-- Нижня панель -->
-            <div class="top-container"></div>
             <div class="button-container">
                 <!--Кнопка для переходу на сторінку аккаунта-->
             <button onclick="showScreen('accountPage')">

@@ -24,11 +24,11 @@ if (!finalCoinsElement) {
 }
 
 // Налаштування canvas
-const BLOCK_SIZE = 30;
-const BOARD_WIDTH = 10;
+const BLOCK_SIZE = 60;
+const BOARD_WIDTH = 12;
 const BOARD_HEIGHT = 20;
 if (canvas) {
-    canvas.width = BOARD_WIDTH * BLOCK_SIZE; // 400 пікселів
+    canvas.width = BOARD_WIDTH * BLOCK_SIZE; 
     canvas.height = BOARD_HEIGHT * BLOCK_SIZE; // 800 пікселів
 }
 
@@ -124,21 +124,47 @@ function draw() {
     }
 }
 
+function drawRoundedRect(ctx, x, y, width, height, radius) {
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + width - radius, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+    ctx.lineTo(x + width, y + height - radius);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+    ctx.lineTo(x + radius, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+}
+
 // Малювання блоку з чорною обводкою та монеткою
 function drawBlock(x, y, color, hasCoin = false) {
     if (!ctx) return;
+
+    const px = x * BLOCK_SIZE;
+    const py = y * BLOCK_SIZE;
+    const size = BLOCK_SIZE - 1;
+    const radius = 20; // ← тут можна ставити 20 або менше
+
     ctx.fillStyle = color;
     ctx.shadowColor = 'rgba(255, 255, 255, 0.2)';
     ctx.shadowOffsetX = 1;
     ctx.shadowOffsetY = 1;
     ctx.shadowBlur = 1;
-    ctx.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE - 1, BLOCK_SIZE - 1);
+
+    drawRoundedRect(ctx, px, py, size, size, radius);
+    ctx.fill();
+
     ctx.shadowColor = 'transparent';
+
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 1;
-    ctx.strokeRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE - 1, BLOCK_SIZE - 1);
+    ctx.stroke(); // замість strokeRect, бо ми вже зробили path
+
+    // Малюємо монетку
     if (hasCoin && coinImage.complete && coinImage.naturalWidth !== 0) {
-        ctx.drawImage(coinImage, x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE - 1, BLOCK_SIZE - 1);
+        ctx.drawImage(coinImage, px, py, size, size);
     }
 }
 

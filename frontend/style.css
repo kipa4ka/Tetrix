@@ -272,19 +272,19 @@ body{
 }
 /* Сама гра */
 #tetrisCanvas {
-    border: 10px solid #333;
+    border: 2px solid #333;
+    border-radius: 20px;
     background-color:rgba(0, 0, 0, 0.1);;
-    display: block;
-    margin: 0 auto;
-    width: 300px; 
-    height: 600px; 
+    display: flex;
+    width: 95%;
+    height: 80%; 
     position: fixed;
     bottom: 8%;
 }
 
 .grid {
-    width: 40px;
-    height: 40px;
+    width: 10%;
+    height: 10%;
     box-sizing: border-box;
     border: 1px solid #ff0000;
 }
@@ -308,14 +308,22 @@ body{
 }
 
 #score {
+  display: flex;
   position: fixed;
-  margin-bottom: 10%;
-  font-size: 24px;
-  color: #ffc800;
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 5px 10px;
-  border-radius: 5px;
-  z-index: 999;
+  width: 45px;
+  height: 45px;
+  right: 5%;
+  bottom: 83%;
+}
+#scoreValue{
+  display: flex;
+  position: fixed;
+  font-size: xx-large;
+  font-weight: bold;
+  color:#ffc800;
+  bottom:83.3%;
+  right: 12%;
+
 }
 
 /* STYLE FOR GIF TETRIS GAME */
@@ -336,7 +344,7 @@ body{
   overflow: hidden;
   position: fixed;
   z-index: 999;
-  bottom: 32%;
+  bottom: 31%;
   width: calc(var(--grid-size-x) * var(--square-size));
   border-radius: 20px;
 }
@@ -606,53 +614,79 @@ body{
   bottom: 0;
 }
 
-#button-account{
+.button_account {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 100px;
-  border: 2px solid #008cb2;
   position: fixed;
-  bottom: 55%;
-  left: 2.5%;
+  background-color: none;
+  box-shadow: 0 0 1px 0 rgba(24, 94, 224, 0.15), 0 6px 12px 0 rgba(24, 94, 224, 0.15);
+  padding: 0.75rem;
+  border-radius: 20px;
+  border: 2px solid #008cb2;
   right: 2.5%;
-  z-index: 999;
-  border-radius: 20px;
+  left: 2.5%; 
+  bottom: 60%;
 }
-#button-account button{
-  cursor: pointer;
-  outline: 0 !important;
-  border: 0 !important;
-  width: 30%;
-  height: 90%;
-  border-radius: 20px;
-  background-color: transparent;
+
+.button_account * {
+  z-index: 2;
+}
+
+.container input[type="radio"] {
+  display: none;
+}
+
+.tab {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  transition: all ease-in-out 0.3s;
   position: relative;
-  font-size: larger;
-  font-weight: bold;
-  margin-left: 0.1%;
-  margin-right: 0.1%;
+  align-items: center;
+  justify-content: space-around;
+  height: 40px;
+  width: 33%;
+  font-size: xx-large;
+  color: rgb(255, 255, 255);
+  font-weight: 500;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: color 0.15s ease-in;
 }
 
-#button-account button:active{
-  background-color: #008cb2;
+
+.container input[type="radio"]:checked + label {
+  color: #fff;
 }
 
-#button-account button:has(input:checked){
-  color: #ffffff;
+.container input[type="radio"]:checked + label > .notification {
+  background-color: #185ee0;
+  color: #fff;
+  margin: 0px;
 }
 
-#button-account button:has(#button-account:nth-child(1):hover){
-  transform: rotateY(-30deg);
+.container input[id="radio-1"]:checked ~ .glider {
+  transform: translateX(0);
 }
 
-#button-account button:has(#button-account:nth-child(1):hover){
-  transform: rotateY(-35deg);
+.container input[id="radio-2"]:checked ~ .glider {
+  transform: translateX(100%);
+}
+
+.container input[id="radio-3"]:checked ~ .glider {
+  transform: translateX(200%);
+}
+
+.glider {
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  height: 99%;
+  width: 33.3%;
+  background-color: #00bbff;
+  z-index: 1;
+  border-radius: 20px;
+  transition: 0.25s ease-out;
+}
+
+@media (max-width: 700px) {
 }
 
 #invite_conteiner{
@@ -679,6 +713,24 @@ body{
   right: 2.5%;
   bottom: 90%;
   height: 60px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+#TotalCoinsImg{
+  display: flex;
+  height: 45px;
+  width: 45px;
+  margin-right: 10px;
+}
+
+#TotalCoins{
+  display: flex;
+  font-size: xx-large;
+  font-weight: bold;
+  color:#ffc800;
+  
 }
 
 #text-forbutton{
@@ -741,5 +793,103 @@ body{
   height: 80px;
   width: 100px;
   z-index: -1;
+}
+
+.tabs {
+  display: flex;
+  position: fixed;
+  background-color: none;
+  box-shadow: 0 0 1px 0 rgba(24, 94, 224, 0.15), 0 6px 12px 0 rgba(24, 94, 224, 0.15);
+  padding: 0.75rem;
+  border-radius: 20px;
+  border: 2px solid #008cb2;
+  right: 2.5%;
+  left: 2.5%; 
+  bottom: 80%;
+}
+
+.tabs * {
+  z-index: 2;
+}
+
+.container input[type="radio"] {
+  display: none;
+}
+
+.tab {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: space-around;
+  height: 40px;
+  width: 33%;
+  font-size: xx-large;
+  color: rgb(255, 255, 255);
+  font-weight: 500;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: color 0.15s ease-in;
+}
+
+
+.container input[type="radio"]:checked + label {
+  color: #fff;
+}
+
+.container input[type="radio"]:checked + label > .notification {
+  background-color: #185ee0;
+  color: #fff;
+  margin: 0px;
+}
+
+.container input[id="radio-1"]:checked ~ .glider {
+  transform: translateX(0);
+}
+
+.container input[id="radio-2"]:checked ~ .glider {
+  transform: translateX(100%);
+}
+
+.container input[id="radio-3"]:checked ~ .glider {
+  transform: translateX(200%);
+}
+
+.glider {
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  height: 99%;
+  width: 33.3%;
+  background-color: #00bbff;
+  z-index: 1;
+  border-radius: 20px;
+  transition: 0.25s ease-out;
+}
+
+@media (max-width: 700px) {
+}
+
+.tab-content .content {
+  display: none;
+  margin-top: 10px;
+  padding: 10px;
+  background: #222;
+  border-radius: 10px;
+  color: white;
+}
+
+/* Показує відповідний блок контенту */
+#radio-1:checked ~ .tab-content .content-1 {
+  display: block;
+}
+
+#radio-2:checked ~ .tab-content .content-2 {
+  display: block;
+}
+
+#radio-3:checked ~ .tab-content .content-3 {
+  display: block;
+  
 }
 
